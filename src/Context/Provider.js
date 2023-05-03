@@ -5,7 +5,7 @@ import api from '../services/fetchAPI';
 
 export default function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
-  const [filterName, setFilterName] = useState([]);
+  const [filterName, setFilterName] = useState('');
 
   useEffect(() => {
     const fetch = async () => {
