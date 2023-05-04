@@ -6,11 +6,10 @@ export default function InputPlanet() {
     filterName,
     setFilterName,
     options,
-    // setOptions,
     setFilterPlanets,
     filterPlanets,
     planets,
-    // setOptions,
+    setOptions,
     filterColumn,
     setFilterColumn,
     filterCompare,
@@ -26,7 +25,12 @@ export default function InputPlanet() {
     setData(planets);
   }, [setData, planets]);
 
+  useEffect(() => {
+    setFilterColumn(options[0]);
+  }, [setFilterColumn, options]);
+
   const handleFilter = () => {
+    setOptions(options.filter((option) => option !== filterColumn));
     switch (filterCompare) {
     case 'maior que':
       return (
@@ -104,6 +108,15 @@ export default function InputPlanet() {
         AddFiltro
 
       </button>
+      {
+        filterPlanets.length > 0
+        && filterPlanets.map((planet) => (
+          <div key={ planet.filterColumn }>
+            {`${planet.filterColumn} ${planet.filterCompare} ${planet.filterNumber}`}
+            <button type="button">x</button>
+          </div>
+        ))
+      }
     </form>
   );
 }
