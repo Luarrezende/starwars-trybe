@@ -6,6 +6,16 @@ import api from '../services/fetchAPI';
 export default function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterName, setFilterName] = useState('');
+  const [options, setOptions] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water']);
+  const [filterColumn, setFilterColumn] = useState('population');
+  const [filterCompare, setFilterCompare] = useState('maior que');
+  const [filterNumber, setFilterNumber] = useState(0);
+  const [filterPlanets, setFilterPlanets] = useState([]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -25,7 +35,32 @@ export default function Provider({ children }) {
     setPlanets,
     filterName,
     setFilterName,
-  }), [planets, filterName, setFilterName]);
+    options,
+    setOptions,
+    filterColumn,
+    setFilterColumn,
+    filterPlanets,
+    setFilterPlanets,
+    filterCompare,
+    setFilterCompare,
+    filterNumber,
+    setFilterNumber,
+  }), [
+    planets,
+    setPlanets,
+    filterName,
+    setFilterName,
+    options,
+    setOptions,
+    filterColumn,
+    setFilterColumn,
+    filterPlanets,
+    setFilterPlanets,
+    filterCompare,
+    setFilterCompare,
+    filterNumber,
+    setFilterNumber,
+  ]);
 
   return (
     <Context.Provider value={ values }>
