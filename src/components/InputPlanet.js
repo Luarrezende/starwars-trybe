@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Context from '../Context/Context';
 
 export default function InputPlanet() {
@@ -6,8 +6,9 @@ export default function InputPlanet() {
     filterName,
     setFilterName,
     options,
-    // setFilterPlanets,
-    // filterPlanets,
+    // setOptions,
+    setFilterPlanets,
+    filterPlanets,
     planets,
     // setOptions,
     filterColumn,
@@ -16,31 +17,40 @@ export default function InputPlanet() {
     setFilterCompare,
     filterNumber,
     setFilterNumber,
-    setPlanets,
+    // setPlanets,
+    data,
+    setData,
   } = useContext(Context);
 
-  // useEffect(() => {
-  // }, [planets, filterPlanets, setFilterPlanets, filterCompare]);
+  useEffect(() => {
+    setData(planets);
+  }, [setData, planets]);
 
   const handleFilter = () => {
     switch (filterCompare) {
     case 'maior que':
       return (
-        setPlanets(planets
+        setData(data
           .filter((planet) => Number(planet[filterColumn])
-            > Number(filterNumber)))
+            > Number(filterNumber))),
+        setFilterPlanets([...filterPlanets,
+          { filterColumn, filterCompare, filterNumber }])
       );
     case 'menor que':
       return (
-        setPlanets(planets
+        setData(data
           .filter((planet) => Number(planet[filterColumn])
-        < Number(filterNumber)))
+        < Number(filterNumber))),
+        setFilterPlanets([...filterPlanets,
+          { filterColumn, filterCompare, filterNumber }])
       );
     case 'igual a':
       return (
-        setPlanets(planets
+        setData(data
           .filter((planet) => Number(planet[filterColumn])
-          === Number(filterNumber)))
+          === Number(filterNumber))),
+        setFilterPlanets([...filterPlanets,
+          { filterColumn, filterCompare, filterNumber }])
       );
     default:
     }

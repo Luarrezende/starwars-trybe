@@ -16,6 +16,7 @@ export default function Provider({ children }) {
   const [filterCompare, setFilterCompare] = useState('maior que');
   const [filterNumber, setFilterNumber] = useState(0);
   const [filterPlanets, setFilterPlanets] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -45,6 +46,8 @@ export default function Provider({ children }) {
     setFilterCompare,
     filterNumber,
     setFilterNumber,
+    data,
+    setData,
   }), [
     planets,
     setPlanets,
@@ -60,6 +63,8 @@ export default function Provider({ children }) {
     setFilterCompare,
     filterNumber,
     setFilterNumber,
+    data,
+    setData,
   ]);
 
   return (
