@@ -153,6 +153,7 @@ export default function InputPlanet() {
             {`${planet.filterColumn} ${planet.filterCompare} ${planet.filterNumber}`}
             <button
               type="button"
+              data-testid="rmv"
               onClick={ () => deleteOneFilter(planet.filterColumn) }
             >
               x
