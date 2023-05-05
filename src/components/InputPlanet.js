@@ -60,6 +60,42 @@ export default function InputPlanet() {
     }
   };
 
+  const deleteOneFilter = (planet) => {
+    const newFilter = filterPlanets.filter((filter) => filter.filterColumn !== planet);
+
+    setFilterPlanets([...newFilter]);
+
+    options.push(planet);
+
+    let newData = [...planets];
+
+    newFilter.forEach((filter) => {
+      if (filter.filterCompare === 'maior que') {
+        newData = newData
+          .filter((item) => Number(item[filter.filterColumn])
+            > Number(filter.filterNumber));
+      }
+      if (filter.filterCompare === 'menor que') {
+        newData = newData
+          .filter((item) => Number(item[filter.filterColumn])
+            < Number(filter.filterNumber));
+      }
+      if (filter.filterCompare === 'igual a') {
+        newData = newData
+          .filter((item) => Number(item[filter.filterColumn])
+            === Number(filter.filterNumber));
+      }
+    });
+    setData([...newData]);
+  };
+
+  const deleteAllFilters = () => {
+    setFilterPlanets([]);
+    setData([...planets]);
+    setOptions(['population', 'orbital_period', 'diameter',
+      'rotation_period', 'surface_water']);
+  };
+
   return (
     <form>
       <input
@@ -109,14 +145,28 @@ export default function InputPlanet() {
 
       </button>
       {
-        filterPlanets.length > 0
-        && filterPlanets.map((planet) => (
-          <div key={ planet.filterColumn }>
+        filterPlanets.map((planet) => (
+          <div
+            data-testid="filter"
+            key={ planet.filterColumn }
+          >
             {`${planet.filterColumn} ${planet.filterCompare} ${planet.filterNumber}`}
-            <button type="button">x</button>
+            <button
+              type="button"
+              onClick={ () => deleteOneFilter(planet.filterColumn) }
+            >
+              x
+            </button>
           </div>
         ))
       }
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ deleteAllFilters }
+      >
+        Remover todas filtragens
+      </button>
     </form>
   );
 }
